@@ -223,6 +223,12 @@
     q('[data-lane="chain"]').textContent = s.chain + (i === 2 && s.chain ? " se queman" : "");
     document.getElementById("mbx-caption").textContent = s.cap;
     document.getElementById("mbx-next").textContent = i === STEPS.length - 1 ? "Volver al inicio" : "Siguiente paso";
+    root.querySelectorAll(".mbx-steps button").forEach((b, k) => {
+      const isNext = i < STEPS.length - 1 && k === i + 1;
+      b.classList.toggle("is-next", isNext);
+      b.querySelector(".hint")?.remove();
+      if (isNext) b.insertAdjacentHTML("beforeend", '<span class="hint" aria-hidden="true">Haz clic</span>');
+    });
   }
   root.querySelector(".mbx-steps").addEventListener("click", (e) => { const b = e.target.closest("button"); if (b) show(+b.dataset.step); });
   root.querySelector(".mbx-steps").addEventListener("keydown", (e) => {

@@ -271,7 +271,17 @@ h4 { font-family: var(--display); font-size: 1.1rem; margin: 0 0 12px; }
 .lane.to-right::before { right: -4px; border-left: 12px solid currentColor; }
 .lane.to-left::before { left: -4px; border-right: 12px solid currentColor; }
 .lane span { color: var(--text); }
-.mbx-caption { margin: 0; font-size: 1.05rem; max-width: 72ch; min-height: 3.2em; }
+.mbx-caption { margin: 0; font-size: 1.1rem; font-weight: 700; max-width: 72ch; min-height: 3.2em; padding: 12px 16px; border-left: 4px solid var(--amber); background: color-mix(in srgb, var(--amber) 10%, transparent); border-radius: 0 8px 8px 0; }
+.mbx-steps { padding-top: 26px; }
+.mbx-steps button { position: relative; }
+.mbx-steps button.is-next { border-color: var(--amber); border-width: 2px; animation: nudge 1.6s ease-in-out infinite; }
+.mbx-steps .hint { position: absolute; left: 50%; bottom: calc(100% + 8px); transform: translateX(-50%); white-space: nowrap; font-size: .78rem; font-weight: 700; background: var(--amber); color: #1A1200; padding: 3px 9px; border-radius: 6px; pointer-events: none; }
+.mbx-steps .hint::after { content: ""; position: absolute; left: 50%; top: 100%; transform: translateX(-50%); border: 5px solid transparent; border-top-color: var(--amber); }
+@keyframes nudge {
+  0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--amber) 55%, transparent); }
+  50% { box-shadow: 0 0 0 8px color-mix(in srgb, var(--amber) 0%, transparent); }
+}
+@media (prefers-reduced-motion: reduce) { .mbx-steps button.is-next { animation: none; box-shadow: 0 0 0 4px color-mix(in srgb, var(--amber) 35%, transparent); } }
 .mbx-legend { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 18px; font-size: .88rem; color: var(--muted); }
 .mbx-legend span { display: inline-flex; align-items: center; gap: 6px; }
 .mbx-legend .btn-ghost { margin-left: auto; }
