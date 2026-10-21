@@ -272,7 +272,7 @@ h4 { font-family: var(--display); font-size: 1.1rem; margin: 0 0 12px; }
 .lane.to-left::before { left: -4px; border-right: 12px solid currentColor; }
 .lane span { color: var(--text); }
 .mbx-caption { margin: 0; font-size: 1.1rem; font-weight: 700; max-width: 72ch; min-height: 3.2em; padding: 12px 16px; border-left: 4px solid var(--amber); background: color-mix(in srgb, var(--amber) 10%, transparent); border-radius: 0 8px 8px 0; }
-.mbx-steps { padding-top: 26px; }
+.mbx-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; padding-top: 26px; }
 .mbx-steps button { position: relative; }
 .mbx-steps button.is-next { border-color: var(--amber); border-width: 2px; animation: nudge 1.6s ease-in-out infinite; }
 .mbx-steps .hint { position: absolute; left: 50%; bottom: calc(100% + 8px); transform: translateX(-50%); white-space: nowrap; font-size: .78rem; font-weight: 700; background: var(--amber); color: #1A1200; padding: 3px 9px; border-radius: 6px; pointer-events: none; }
@@ -347,3 +347,13 @@ summary.cue { display: list-item; width: fit-content; padding-inline: 6px; }
   .cue { box-shadow: 0 0 0 4px color-mix(in srgb, var(--amber) 35%, transparent); }
 }
 .block .cue-host { position: relative; }
+
+.mbx-next { display: inline-flex; align-items: center; gap: 8px; font: 700 .95rem var(--body); min-height: 40px; padding: 8px 14px 8px 18px; border-radius: 999px; border: 1.5px solid var(--ink-green); background: var(--ink-green); color: #F1F4EF; cursor: pointer; }
+.mbx-next svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; transition: transform .2s; }
+.mbx-next:hover svg { transform: translateX(3px); }
+.mbx-next.is-restart { background: transparent; color: var(--text); border-color: var(--line); }
+.mbx-next.is-restart svg { transform: scaleX(-1) rotate(0); }
+.mbx-next.is-restart:hover svg { transform: scaleX(-1) translateX(3px); }
+@media (prefers-color-scheme: dark) { .mbx-next:not(.is-restart) { background: var(--link); border-color: var(--link); color: #0F1A16; } }
+@media (prefers-reduced-motion: reduce) { .mbx-next svg { transition: none; } }
+@media (max-width: 640px) { .mbx-top { row-gap: 36px; } }

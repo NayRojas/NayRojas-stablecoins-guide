@@ -222,7 +222,8 @@
     q('[data-lane="fiat"]').textContent = s.fiat;
     q('[data-lane="chain"]').textContent = s.chain + (i === 2 && s.chain ? " se queman" : "");
     document.getElementById("mbx-caption").textContent = s.cap;
-    document.getElementById("mbx-next").textContent = i === STEPS.length - 1 ? "Volver al inicio" : "Siguiente paso";
+    document.querySelector("#mbx-next .mbx-next-label").textContent = i === STEPS.length - 1 ? "Volver al inicio" : "Siguiente paso";
+    document.getElementById("mbx-next").classList.toggle("is-restart", i === STEPS.length - 1);
     root.querySelectorAll(".mbx-steps button").forEach((b, k) => {
       const isNext = i < STEPS.length - 1 && k === i + 1;
       b.classList.toggle("is-next", isNext);

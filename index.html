@@ -94,10 +94,13 @@
           <p><b>Mint</b> (acuñar) es crear stablecoins nuevas. <b>Burn</b> (quemar) es destruirlas. Sigue a María paso a paso. Cada ícono vale 10.</p>
         </div>
         <div class="mbx" id="mbx">
-          <div class="mbx-steps" role="tablist" aria-label="Pasos del ejemplo">
-            <button type="button" role="tab" data-step="0">1. Inicio</button>
-            <button type="button" role="tab" data-step="1">2. Mint</button>
-            <button type="button" role="tab" data-step="2">3. Burn</button>
+          <div class="mbx-top">
+            <div class="mbx-steps" role="tablist" aria-label="Pasos del ejemplo">
+              <button type="button" role="tab" data-step="0">1. Inicio</button>
+              <button type="button" role="tab" data-step="1">2. Mint</button>
+              <button type="button" role="tab" data-step="2">3. Burn</button>
+            </div>
+            <button type="button" class="mbx-next" id="mbx-next"><span class="mbx-next-label">Siguiente paso</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></button>
           </div>
           <p class="mbx-caption" id="mbx-caption" aria-live="polite"></p>
           <div class="mbx-scene">
@@ -119,7 +122,6 @@
           <div class="mbx-legend" aria-hidden="true">
             <span><i class="ic bill"></i>10 USD</span><span><i class="ic coin"></i>10 USDC</span>
             <span><i class="ic coin is-new"></i>llegó en este paso</span><span><i class="ic bill is-out"></i>salió</span><span><i class="ic coin is-gone"></i>quemado, deja de existir</span>
-            <button type="button" class="btn-ghost" id="mbx-next">Siguiente paso</button>
           </div>
         </div>
         <p class="viz-note">La regla: cada USDC que existe tiene 1 USD guardado en la bóveda. Por eso "USDC que existen" y "Reserva" siempre muestran la misma cifra.</p>
