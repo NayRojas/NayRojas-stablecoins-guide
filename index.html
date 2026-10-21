@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stablecoins: guía para equipos</title>
+<meta name="description" content="Glosario de 100 términos sobre stablecoins y blockchain, con videos y cursos en español, para equipos técnicos que necesitan entender el negocio.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23123B30'/%3E%3Cpath d='M5 17h22' stroke='%23F1F4EF' stroke-width='3' stroke-linecap='round'/%3E%3Ccircle cx='21' cy='17' r='4' fill='%23C98A00'/%3E%3C/svg%3E">
+</head>
+<body>
+<a class="skip" href="#glosario">Ir al glosario</a>
+
+<header class="hero">
+  <div class="wrap">
+    <h1>Un dólar que se mueve como un mensaje.</h1>
+    <p class="lede">Las stablecoins mantienen su valor anclado al dólar mientras circulan por una blockchain, las 24 horas, en segundos. Esta guía reúne el vocabulario y los recursos para que un equipo técnico entienda también el negocio detrás.</p>
+  </div>
+  <figure class="peg" aria-label="Ilustración: precio de una stablecoin oscilando alrededor de 1,00 USD">
+    <svg viewBox="0 0 1200 220" preserveAspectRatio="none" aria-hidden="true">
+      <defs>
+        <pattern id="guilloche" width="24" height="24" patternUnits="userSpaceOnUse">
+          <path d="M0 12 Q6 0 12 12 T24 12" fill="none" stroke="currentColor" stroke-width=".6" opacity=".35"/>
+        </pattern>
+      </defs>
+      <rect width="1200" height="220" fill="url(#guilloche)" class="guill"/>
+      <line x1="0" y1="110" x2="1200" y2="110" class="pegline"/>
+      <path id="price" class="price" d=""/>
+      <circle id="dot" class="dot" r="7" cx="0" cy="110"/>
+    </svg>
+    <figcaption><span class="peg-label">1,00 USD</span><span id="peg-readout" class="readout" aria-hidden="true">1.000</span></figcaption>
+  </figure>
+</header>
+
+<nav class="sitenav" aria-label="Secciones">
+  <div class="wrap">
+    <a href="#ruta">Ruta</a>
+    <a href="#glosario">Glosario</a>
+    <a href="#videos">Videos</a>
+    <a href="#cursos">Cursos</a>
+  </div>
+</nav>
+
+<main>
+  <section id="ruta" class="wrap section">
+    <h2>Por dónde empezar</h2>
+    <p class="section-intro">Una secuencia sugerida para un equipo que parte de cero. Cada paso enlaza a lo que conviene leer o ver.</p>
+    <ol class="route">
+      <li><h3>Entender la base</h3><p>Qué es una blockchain, una wallet y un token. Términos de <a href="#glosario" data-cat="fund">Fundamentos</a> y el video de 8 minutos de Geopop.</p></li>
+      <li><h3>Entender la stablecoin</h3><p>Peg, reservas, emisión y redención. El <a href="https://platzi.com/cursos/stablecoins/" target="_blank" rel="noopener">Curso de Stablecoins de Platzi</a> y la categoría <a href="#glosario" data-cat="stab">Stablecoins</a>.</p></li>
+      <li><h3>Ver dónde se usa</h3><p>Pagos transfronterizos, remesas, tesorería y tokenización. Categoría <a href="#glosario" data-cat="biz">Negocio</a> y los videos de BBVA y América Latina.</p></li>
+      <li><h3>Conocer los límites</h3><p>Regulación (GENIUS Act, MiCA, Travel Rule) y riesgos (depeg, contraparte, smart contracts). Categorías <a href="#glosario" data-cat="reg">Regulación</a> y <a href="#glosario" data-cat="risk">Riesgos</a>.</p></li>
+      <li><h3>Bajar a la técnica</h3><p>ERC-20, capas 2, oráculos y Solidity, para quien construirá integraciones. Categoría <a href="#glosario" data-cat="tec">Infraestructura técnica</a> y los cursos de smart contracts.</p></li>
+    </ol>
+  </section>
+
+  <section id="glosario" class="section">
+    <div class="wrap">
+      <h2>Glosario <span class="count">100 términos</span></h2>
+      <p class="section-intro">Cada término trae su definición y una lectura de negocio: qué significa para un producto, un cliente o la operación.</p>
+      <div class="tools" role="search">
+        <label class="search">
+          <span class="visually-hidden">Buscar en el glosario</span>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+          <input id="q" type="search" placeholder="Busca un término, por ejemplo peg, KYC o rollup" autocomplete="off">
+        </label>
+        <div class="chips" id="chips" role="group" aria-label="Filtrar por categoría"></div>
+      </div>
+      <p id="status" class="status" role="status" aria-live="polite"></p>
+      <div id="letters" class="letters" aria-label="Índice alfabético"></div>
+      <div id="terms" class="terms"></div>
+    </div>
+  </section>
+
+  <section id="videos" class="wrap section">
+    <h2>Videos en YouTube</h2>
+    <p class="section-intro">Seleccionados para principiantes, en español. Ordenados de lo general a lo específico.</p>
+    <div id="video-list" class="res-table"></div>
+    <details class="more">
+      <summary>Para profundizar: videos en inglés</summary>
+      <div id="video-list-en" class="res-table"></div>
+    </details>
+  </section>
+
+  <section id="cursos" class="wrap section">
+    <h2>Cursos en español</h2>
+    <p class="section-intro">Agrupados por plataforma. El nivel y la duración son los que declara cada plataforma; pueden cambiar.</p>
+    <div id="course-list"></div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <p>Material educativo, no constituye asesoría financiera ni legal. Recursos verificados en octubre de 2026; los enlaces externos pueden cambiar.</p>
+  </div>
+</footer>
+
+<script src="data/glosario.js"></script>
+<script src="data/recursos.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>
