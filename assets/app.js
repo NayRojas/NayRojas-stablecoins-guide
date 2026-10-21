@@ -123,3 +123,65 @@
       </div>
     </section>`).join("");
 })();
+
+/* ── Cadena de bloques interactiva ── */
+(() => {
+  const root = document.getElementById("chain");
+  if (!root) return;
+  const INIT = [
+    "Ana → Luis: 50 USDC\nLuis → Rosa: 20 USDC",
+    "Rosa → Pedro: 15 USDC\nPedro → Ana: 5 USDC",
+    "Ana → Mía: 30 USDC",
+    "Mía → Luis: 12 USDC\nLuis → Pedro: 8 USDC"
+  ];
+  const enc = new TextEncoder();
+  const sha = async (txt) => {
+    if (window.crypto && crypto.subtle) {
+      const buf = await crypto.subtle.digest("SHA-256", enc.encode(txt));
+      return [...new Uint8Array(buf)].map((b) => b.toString(16).padStart(2, "0")).join("");
+    }
+    let h = 2166136261; // respaldo simple si no hay WebCrypto
+    for (const c of txt) { h ^= c.charCodeAt(0); h = Math.imul(h, 16777619) >>> 0; }
+    return h.toString(16).padStart(8, "0").repeat(8);
+  };
+  const short = (h) => h.slice(0, 10) + "…";
+  let sealed = [];
+
+  root.innerHTML = INIT.map((d, i) => `
+    <div class="block" data-i="${i}">
+      <div class="block-head">Bloque ${i + 1}<span class="block-state">Válido</span></div>
+      <label for="b${i}">Transacciones</label>
+      <textarea id="b${i}" rows="3" spellcheck="false">${d}</textarea>
+      <div class="hashrow"><span>Huella anterior</span><code class="p">—</code><span>Huella</span><code class="h">—</code></div>
+    </div>`).join("");
+  const blocks = [...root.querySelectorAll(".block")];
+
+  async function compute() {
+    let prev = "0".repeat(64), out = [];
+    for (let i = 0; i < blocks.length; i++) {
+      const data = blocks[i].querySelector("textarea").value;
+      const h = await sha(i + "|" + prev + "|" + data);
+      out.push({ prev, h }); prev = h;
+    }
+    return out;
+  }
+  async function update() {
+    const res = await compute();
+    if (!sealed.length) sealed = res.map((r) => r.h);
+    let broken = false;
+    res.forEach((r, i) => {
+      const b = blocks[i];
+      broken = broken || r.h !== sealed[i];
+      b.classList.toggle("broken", broken);
+      b.querySelector(".block-state").textContent = broken ? "Alterado" : "Válido";
+      b.querySelector("code.p").textContent = i ? short(r.prev) : "inicio";
+      b.querySelector("code.h").textContent = short(r.h);
+    });
+  }
+  let t;
+  root.addEventListener("input", () => { clearTimeout(t); t = setTimeout(update, 80); });
+  document.getElementById("chain-reset").addEventListener("click", () => {
+    blocks.forEach((b, i) => (b.querySelector("textarea").value = INIT[i])); update();
+  });
+  update();
+})();

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Stablecoins: guía para equipos</title>
-<meta name="description" content="Glosario de stablecoins y blockchain, con videos y cursos en español, para equipos técnicos que necesitan entender el negocio.">
+<meta name="description" content="Glosario de 124 términos sobre stablecoins y blockchain, con gráficos explicativos, videos y cursos en español, para equipos técnicos que necesitan entender el negocio.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&display=swap" rel="stylesheet">
@@ -38,6 +38,7 @@
 <nav class="sitenav" aria-label="Secciones">
   <div class="wrap">
     <a href="#ruta">Ruta</a>
+    <a href="#graficos">Cómo funciona</a>
     <a href="#glosario">Glosario</a>
     <a href="#videos">Videos</a>
     <a href="#cursos">Cursos</a>
@@ -49,7 +50,7 @@
     <h2>Por dónde empezar</h2>
     <p class="section-intro">Una secuencia sugerida para un equipo que parte de cero. Cada paso enlaza a lo que conviene leer o ver.</p>
     <ol class="route">
-      <li><h3>Entender la base</h3><p>Qué es una blockchain, un token y la diferencia entre fiat y cripto. Términos de <a href="#glosario" data-cat="fund">Fundamentos</a> y el video de 8 minutos de Geopop.</p></li>
+      <li><h3>Entender la base</h3><p>Qué es una blockchain, un token y la diferencia entre fiat y cripto. Los <a href="#graficos">gráficos de cómo funciona</a>, los términos de <a href="#glosario" data-cat="fund">Fundamentos</a> y el video de 8 minutos de Geopop.</p></li>
       <li><h3>Entender quién guarda la llave</h3><p>Wallets custodiadas y no custodiadas, hot y cold, MPC y custodios calificados. Categoría <a href="#glosario" data-cat="cust">Custodia y wallets</a>.</p></li>
       <li><h3>Entender la stablecoin</h3><p>Peg, reservas, emisión y redención. El <a href="https://platzi.com/cursos/stablecoins/" target="_blank" rel="noopener">Curso de Stablecoins de Platzi</a> y la categoría <a href="#glosario" data-cat="stab">Stablecoins</a>.</p></li>
       <li><h3>Ver dónde se usa</h3><p>El modelo sándwich, pagos transfronterizos, remesas, tesorería y tokenización. Categoría <a href="#glosario" data-cat="biz">Negocio</a> y los videos de BBVA y América Latina.</p></li>
@@ -58,9 +59,112 @@
     </ol>
   </section>
 
+  <section id="graficos" class="section viz-section">
+    <div class="wrap">
+      <h2>Cómo funciona, en gráficos</h2>
+      <p class="section-intro">Cinco imágenes para entender el sistema antes de entrar al vocabulario. Ninguna requiere saber programar.</p>
+
+      <article class="viz" aria-labelledby="v-chain">
+        <div class="viz-text">
+          <h3 id="v-chain">Una cadena que delata cualquier cambio</h3>
+          <p>Cada bloque guarda sus transacciones y la <b>huella (hash)</b> del bloque anterior. Si alguien altera un dato antiguo, su huella cambia, la del siguiente bloque también, y así hasta el final: toda la red ve que la cadena ya no coincide.</p>
+          <p class="viz-try">Pruébalo: cambia una cifra en el bloque 2.</p>
+          <button type="button" class="btn-ghost" id="chain-reset">Restaurar la cadena</button>
+        </div>
+        <div class="chain" id="chain" aria-live="polite"></div>
+      </article>
+
+      <article class="viz" aria-labelledby="v-tx">
+        <div class="viz-text">
+          <h3 id="v-tx">El recorrido de un pago</h3>
+          <p>Lo que pasa entre que Ana presiona "enviar" y Luis recibe 50 USDC. En redes rápidas todo ocurre en segundos.</p>
+        </div>
+        <ol class="flow">
+          <li class="node"><strong>Firma</strong><span>La wallet de Ana firma la orden con su clave privada.</span></li>
+          <li class="node"><strong>Difusión</strong><span>La transacción se envía a los nodos de la red.</span></li>
+          <li class="node"><strong>Validación</strong><span>Los validadores comprueban firma y saldo.</span></li>
+          <li class="node"><strong>Bloque</strong><span>Se incluye en un bloque nuevo, pagando gas.</span></li>
+          <li class="node is-chain"><strong>Finalidad</strong><span>Ya no puede revertirse: Luis tiene el dinero.</span></li>
+        </ol>
+      </article>
+
+      <article class="viz" aria-labelledby="v-mint">
+        <div class="viz-text">
+          <h3 id="v-mint">Cómo nace y muere una stablecoin</h3>
+          <p>En una stablecoin respaldada por fiat, cada token en circulación corresponde a un dólar en las reservas del emisor. Emitir y redimir mantienen ambos lados iguales.</p>
+        </div>
+        <div class="mint">
+          <div class="mint-col">
+            <h4>Emitir (mint)</h4>
+            <ol class="flow flow-v">
+              <li class="node is-fiat"><strong>Cliente envía 1.000 USD</strong><span>Transferencia bancaria al emisor.</span></li>
+              <li class="node is-fiat"><strong>Reservas +1.000 USD</strong><span>Efectivo y letras del Tesoro en bancos y custodios.</span></li>
+              <li class="node is-chain"><strong>Se acuñan 1.000 tokens</strong><span>Llegan a la wallet del cliente.</span></li>
+            </ol>
+          </div>
+          <div class="balance" aria-label="Tokens en circulación igual a dólares en reserva">
+            <div class="pan"><span>Tokens en circulación</span><b>1.000</b></div>
+            <div class="eq" aria-hidden="true">=</div>
+            <div class="pan"><span>Dólares en reserva</span><b>1.000</b></div>
+          </div>
+          <div class="mint-col">
+            <h4>Redimir (burn)</h4>
+            <ol class="flow flow-v">
+              <li class="node is-chain"><strong>Cliente devuelve 1.000 tokens</strong><span>Los envía al emisor.</span></li>
+              <li class="node is-chain"><strong>Se queman los tokens</strong><span>Salen de circulación.</span></li>
+              <li class="node is-fiat"><strong>Cliente recibe 1.000 USD</strong><span>Reservas −1.000 USD.</span></li>
+            </ol>
+          </div>
+        </div>
+      </article>
+
+      <article class="viz" aria-labelledby="v-sand">
+        <div class="viz-text">
+          <h3 id="v-sand">El modelo sándwich</h3>
+          <p>Un pago de Lima a Ciudad de México sin bancos corresponsales. Las tapas son dinero tradicional; el relleno es la stablecoin cruzando la frontera. Ni quien envía ni quien recibe toca cripto.</p>
+        </div>
+        <div class="sandwich">
+          <div class="layer is-fiat"><span class="layer-tag">Tapa</span><strong>Soles en Perú</strong><span>El cliente paga en soles a su banco o fintech.</span></div>
+          <div class="ramp">On-ramp: soles → USDC</div>
+          <div class="layer is-chain"><span class="layer-tag">Relleno</span><strong>USDC en blockchain</strong><span>Cruza la frontera en segundos o minutos, 24/7.</span></div>
+          <div class="ramp">Off-ramp: USDC → pesos</div>
+          <div class="layer is-fiat"><span class="layer-tag">Tapa</span><strong>Pesos en México</strong><span>El beneficiario recibe pesos en su cuenta local.</span></div>
+        </div>
+        <p class="viz-note">El costo y el riesgo se concentran en las tapas: tipo de cambio, liquidez local y cumplimiento (KYC, Travel Rule).</p>
+      </article>
+
+      <article class="viz" aria-labelledby="v-cust">
+        <div class="viz-text">
+          <h3 id="v-cust">¿Quién guarda la llave?</h3>
+          <p>Los fondos siempre están en la blockchain. Lo que cambia es quién controla la clave privada que permite moverlos.</p>
+        </div>
+        <div class="custody">
+          <div class="cust-col">
+            <h4>Custodiada</h4>
+            <div class="who"><span class="person">Cliente</span><span class="arrow" aria-hidden="true">usuario y contraseña →</span><span class="holder">Empresa <span class="key" aria-label="tiene la llave">🔑</span></span></div>
+            <ul><li>Si el cliente olvida su acceso, se recupera.</li><li>La empresa asume riesgo operativo y regulación.</li><li>Ejemplo: cuenta en un exchange o banco.</li></ul>
+          </div>
+          <div class="cust-col">
+            <h4>No custodiada</h4>
+            <div class="who"><span class="holder">Cliente <span class="key" aria-label="tiene la llave">🔑</span></span><span class="arrow" aria-hidden="true">firma directo en →</span><span class="person">Blockchain</span></div>
+            <ul><li>Control total, sin intermediario.</li><li>Si pierde la frase semilla, nadie puede ayudar.</li><li>Ejemplo: MetaMask o una hardware wallet.</li></ul>
+          </div>
+        </div>
+        <div class="temp" role="img" aria-label="Espectro de wallets: hot, conectada y rápida, para pocos fondos; warm, intermedia; cold, sin conexión y lenta, para la mayoría de fondos.">
+          <div class="temp-bar"></div>
+          <div class="temp-labels">
+            <div><strong>Hot</strong><span>Conectada, inmediata. Liquidez del día.</span></div>
+            <div><strong>Warm</strong><span>Conexión controlada y aprobaciones.</span></div>
+            <div><strong>Cold</strong><span>Sin conexión, lenta a propósito. La mayor parte de los fondos.</span></div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
   <section id="glosario" class="section">
     <div class="wrap">
-      <h2>Glosario <span class="count" id="total"></span></h2>
+      <h2>Glosario <span class="count" id="total">124 términos</span></h2>
       <p class="section-intro">Cada término trae su definición y una lectura de negocio: qué significa para un producto, un cliente o la operación.</p>
       <div class="tools" role="search">
         <label class="search">

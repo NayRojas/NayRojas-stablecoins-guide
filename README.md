@@ -1,6 +1,6 @@
 # Stablecoins: guía para equipos
 
-Sitio estático con un glosario de más de 120 términos sobre stablecoins y blockchain (cada uno con su lectura de negocio), una ruta de aprendizaje sugerida, videos de YouTube y cursos en español de Platzi, Udemy y Coursera.
+Sitio estático con un glosario de 124 términos sobre stablecoins y blockchain (cada uno con su lectura de negocio), una ruta de aprendizaje sugerida, gráficos que explican cómo funciona blockchain, videos de YouTube y cursos en español de Platzi, Udemy y Coursera.
 
 Pensado para equipos técnicos que necesitan entender también el lado de negocio.
 
