@@ -239,3 +239,47 @@
   document.getElementById("mbx-next").addEventListener("click", () => show((cur + 1) % STEPS.length));
   show(0);
 })();
+
+
+/* ── Señales para indicar dónde hacer clic ── */
+(() => {
+  // Pone el pulso y la etiqueta en `el`; la etiqueta se ancla a `anchor` (por defecto el mismo elemento).
+  function cue(el, text, { anchor = el, until = ["click"], target = el } = {}) {
+    if (!el || el.dataset.cued) return;
+    el.dataset.cued = "1";
+    el.classList.add("cue");
+    const tag = document.createElement("span");
+    tag.className = "cue-tag"; tag.setAttribute("aria-hidden", "true"); tag.textContent = text;
+    if (getComputedStyle(anchor).position === "static") anchor.style.position = "relative";
+    anchor.appendChild(tag);
+    const off = () => { el.classList.remove("cue"); tag.remove(); until.forEach((ev) => target.removeEventListener(ev, off)); };
+    until.forEach((ev) => target.addEventListener(ev, off, { once: true }));
+  }
+
+  // 1) Cadena: el textarea del bloque 2
+  const ta = document.getElementById("b1");
+  if (ta) cue(ta, "Edita aquí", { anchor: ta.closest(".block"), until: ["input", "focus"] });
+
+  // 2) Mint y burn: el botón "Siguiente paso" acompaña al paso resaltado
+  const next = document.getElementById("mbx-next");
+  const steps = document.querySelector("#mbx .mbx-steps");
+  if (next && steps) {
+    let tag;
+    const sync = () => {
+      const pending = !!steps.querySelector(".is-next");
+      next.classList.toggle("cue", pending);
+      if (tag && !tag.isConnected) tag = null;
+      if (pending && !tag) { tag = document.createElement("span"); tag.className = "cue-tag"; tag.setAttribute("aria-hidden", "true"); tag.textContent = "o aquí"; next.style.position = "relative"; next.appendChild(tag); }
+      if (!pending && tag) { tag.remove(); tag = null; }
+    };
+    new MutationObserver(sync).observe(steps, { subtree: true, attributes: true, attributeFilter: ["class"] });
+    sync();
+  }
+
+  // 3) Cualquier elemento marcado con data-cue (por ejemplo, el desplegable de videos)
+  document.querySelectorAll("[data-cue]").forEach((el) => {
+    const d = el.closest("details");
+    cue(el, el.dataset.cue, { until: ["click"] });
+    if (d) d.addEventListener("toggle", () => { el.classList.remove("cue"); el.querySelector(".cue-tag")?.remove(); }, { once: true });
+  });
+})();
