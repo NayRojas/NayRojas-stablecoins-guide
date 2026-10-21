@@ -60,7 +60,7 @@ h1, h2, h3 { font-family: var(--display); line-height: 1.1; margin: 0; }
   font-size: clamp(2.6rem, 7vw, 5.4rem);
   font-weight: 800;
   letter-spacing: -0.03em;
-  max-width: 14ch;
+  max-width: 17ch;
   font-variation-settings: "opsz" 96;
 }
 .lede { max-width: 58ch; color: var(--hero-muted); font-size: 1.15rem; margin: 24px 0 0; }
