@@ -37,6 +37,7 @@
   /* ── Glosario ── */
   const sorted = [...G].sort((a, b) => a.t.localeCompare(b.t, "es", { sensitivity: "base" }));
   let cat = "all", q = "";
+  $("#total").textContent = `${G.length} términos`;
 
   const chips = $("#chips");
   const chipData = [["all", "Todas"], ...Object.entries(CATS)];

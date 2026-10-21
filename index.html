@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Stablecoins: guía para equipos</title>
-<meta name="description" content="Glosario de 100 términos sobre stablecoins y blockchain, con videos y cursos en español, para equipos técnicos que necesitan entender el negocio.">
+<meta name="description" content="Glosario de stablecoins y blockchain, con videos y cursos en español, para equipos técnicos que necesitan entender el negocio.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&display=swap" rel="stylesheet">
@@ -49,9 +49,10 @@
     <h2>Por dónde empezar</h2>
     <p class="section-intro">Una secuencia sugerida para un equipo que parte de cero. Cada paso enlaza a lo que conviene leer o ver.</p>
     <ol class="route">
-      <li><h3>Entender la base</h3><p>Qué es una blockchain, una wallet y un token. Términos de <a href="#glosario" data-cat="fund">Fundamentos</a> y el video de 8 minutos de Geopop.</p></li>
+      <li><h3>Entender la base</h3><p>Qué es una blockchain, un token y la diferencia entre fiat y cripto. Términos de <a href="#glosario" data-cat="fund">Fundamentos</a> y el video de 8 minutos de Geopop.</p></li>
+      <li><h3>Entender quién guarda la llave</h3><p>Wallets custodiadas y no custodiadas, hot y cold, MPC y custodios calificados. Categoría <a href="#glosario" data-cat="cust">Custodia y wallets</a>.</p></li>
       <li><h3>Entender la stablecoin</h3><p>Peg, reservas, emisión y redención. El <a href="https://platzi.com/cursos/stablecoins/" target="_blank" rel="noopener">Curso de Stablecoins de Platzi</a> y la categoría <a href="#glosario" data-cat="stab">Stablecoins</a>.</p></li>
-      <li><h3>Ver dónde se usa</h3><p>Pagos transfronterizos, remesas, tesorería y tokenización. Categoría <a href="#glosario" data-cat="biz">Negocio</a> y los videos de BBVA y América Latina.</p></li>
+      <li><h3>Ver dónde se usa</h3><p>El modelo sándwich, pagos transfronterizos, remesas, tesorería y tokenización. Categoría <a href="#glosario" data-cat="biz">Negocio</a> y los videos de BBVA y América Latina.</p></li>
       <li><h3>Conocer los límites</h3><p>Regulación (GENIUS Act, MiCA, Travel Rule) y riesgos (depeg, contraparte, smart contracts). Categorías <a href="#glosario" data-cat="reg">Regulación</a> y <a href="#glosario" data-cat="risk">Riesgos</a>.</p></li>
       <li><h3>Bajar a la técnica</h3><p>ERC-20, capas 2, oráculos y Solidity, para quien construirá integraciones. Categoría <a href="#glosario" data-cat="tec">Infraestructura técnica</a> y los cursos de smart contracts.</p></li>
     </ol>
@@ -59,13 +60,13 @@
 
   <section id="glosario" class="section">
     <div class="wrap">
-      <h2>Glosario <span class="count">100 términos</span></h2>
+      <h2>Glosario <span class="count" id="total"></span></h2>
       <p class="section-intro">Cada término trae su definición y una lectura de negocio: qué significa para un producto, un cliente o la operación.</p>
       <div class="tools" role="search">
         <label class="search">
           <span class="visually-hidden">Buscar en el glosario</span>
           <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
-          <input id="q" type="search" placeholder="Busca un término, por ejemplo peg, KYC o rollup" autocomplete="off">
+          <input id="q" type="search" placeholder="Busca un término, por ejemplo peg, custodia o KYC" autocomplete="off">
         </label>
         <div class="chips" id="chips" role="group" aria-label="Filtrar por categoría"></div>
       </div>
