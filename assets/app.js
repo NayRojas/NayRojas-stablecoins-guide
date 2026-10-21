@@ -185,3 +185,51 @@
   });
   update();
 })();
+
+/* ── Mint y burn: escena por pasos ── */
+(() => {
+  const root = document.getElementById("mbx");
+  if (!root) return;
+  const STEPS = [
+    { bank: 100, wallet: 0, reserve: 0, supply: 0, fiat: "", chain: "", newW: 0, goneW: 0, newR: 0, goneB: 0, newB: 0,
+      cap: "María tiene 100 USD en su banco y quiere dólares digitales. Todavía no existe ningún USDC." },
+    { bank: 0, wallet: 100, reserve: 100, supply: 100, fiat: "100 USD", fiatDir: "to-right", chain: "100 USDC nuevos", chainDir: "to-left", newW: 100, newR: 100, goneB: 100, goneW: 0, newB: 0,
+      cap: "Mint: María transfiere 100 USD al emisor, que los guarda en su bóveda y crea 100 USDC nuevos en la wallet de María." },
+    { bank: 40, wallet: 60, reserve: 60, supply: 60, fiat: "40 USD", fiatDir: "to-left", chain: "40 USDC", chainDir: "to-right", goneW: 40, newB: 40, newR: 0, goneB: 0, newW: 0, goneR: 40,
+      cap: "Burn: María devuelve 40 USDC. El emisor los destruye y le paga 40 USD de la bóveda a su banco. Ahora existen 60 USDC y quedan 60 USD de reserva." }
+  ];
+  const q = (s) => root.querySelector(s);
+  const icons = (kind, n, fresh = 0, gone = 0) => {
+    const total = n / 10, f = fresh / 10, g = gone / 10;
+    let h = "";
+    for (let i = 0; i < total; i++) h += `<i class="ic ${kind}${i >= total - f ? " is-new" : ""}" style="animation-delay:${(i - (total - f)) * 40}ms"></i>`;
+    for (let i = 0; i < g; i++) h += `<i class="ic ${kind} ${kind === "coin" ? "is-gone" : "is-out"}"></i>`;
+    return h;
+  };
+  let cur = 0;
+  function show(i) {
+    cur = i; const s = STEPS[i];
+    root.querySelectorAll(".mbx-steps button").forEach((b, k) => { b.setAttribute("aria-selected", String(k === i)); b.tabIndex = k === i ? 0 : -1; });
+    q('[data-icons="bank"]').innerHTML = icons("bill", s.bank, s.newB, s.goneB);
+    q('[data-icons="wallet"]').innerHTML = icons("coin", s.wallet, s.newW, s.goneW);
+    q('[data-icons="reserve"]').innerHTML = icons("bill", s.reserve, s.newR, s.goneR || 0);
+    q('[data-v="bank"]').textContent = s.bank + " USD";
+    q('[data-v="wallet"]').textContent = s.wallet + " USDC";
+    q('[data-v="reserve"]').textContent = s.reserve + " USD";
+    q('[data-v="supply"]').textContent = s.supply;
+    const lf = q(".lane-fiat"), lc = q(".lane-chain");
+    lf.className = "lane lane-fiat " + (s.fiatDir || ""); lc.className = "lane lane-chain " + (s.chainDir || "");
+    q('[data-lane="fiat"]').textContent = s.fiat;
+    q('[data-lane="chain"]').textContent = s.chain + (i === 2 && s.chain ? " se queman" : "");
+    document.getElementById("mbx-caption").textContent = s.cap;
+    document.getElementById("mbx-next").textContent = i === STEPS.length - 1 ? "Volver al inicio" : "Siguiente paso";
+  }
+  root.querySelector(".mbx-steps").addEventListener("click", (e) => { const b = e.target.closest("button"); if (b) show(+b.dataset.step); });
+  root.querySelector(".mbx-steps").addEventListener("keydown", (e) => {
+    if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
+    const n = (cur + (e.key === "ArrowRight" ? 1 : STEPS.length - 1)) % STEPS.length; show(n);
+    root.querySelectorAll(".mbx-steps button")[n].focus();
+  });
+  document.getElementById("mbx-next").addEventListener("click", () => show((cur + 1) % STEPS.length));
+  show(0);
+})();

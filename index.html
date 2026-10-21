@@ -91,34 +91,38 @@
       <article class="viz" aria-labelledby="v-mint">
         <div class="viz-text">
           <h3 id="v-mint">Mint y burn, con un ejemplo</h3>
-          <p><b>Mint</b> (acuñar) es crear stablecoins nuevas. <b>Burn</b> (quemar) es destruirlas. Veámoslo con María y USDC.</p>
+          <p><b>Mint</b> (acuñar) es crear stablecoins nuevas. <b>Burn</b> (quemar) es destruirlas. Sigue a María paso a paso. Cada ícono vale 10.</p>
         </div>
-        <div class="mb">
-          <div class="mb-card">
-            <h4>Mint: María compra 100 USDC</h4>
-            <div class="mb-row">
-              <span class="pill is-fiat">100 USD</span>
-              <span class="mb-arrow">María los transfiere al emisor</span>
-              <span class="pill is-chain">+100 USDC</span>
-            </div>
-            <p>El emisor guarda los 100 USD en su reserva y <b>crea</b> 100 USDC nuevos en la wallet de María. Antes no existían.</p>
+        <div class="mbx" id="mbx">
+          <div class="mbx-steps" role="tablist" aria-label="Pasos del ejemplo">
+            <button type="button" role="tab" data-step="0">1. Inicio</button>
+            <button type="button" role="tab" data-step="1">2. Mint</button>
+            <button type="button" role="tab" data-step="2">3. Burn</button>
           </div>
-          <div class="mb-card">
-            <h4>Burn: María vende 40 USDC</h4>
-            <div class="mb-row">
-              <span class="pill is-chain">−40 USDC</span>
-              <span class="mb-arrow">María los devuelve al emisor</span>
-              <span class="pill is-fiat">40 USD</span>
+          <div class="mbx-scene">
+            <section class="mbx-actor" aria-label="María">
+              <h4><span class="avatar" aria-hidden="true">M</span>María</h4>
+              <div class="mbx-box is-fiat"><div class="mbx-label">Cuenta bancaria <b data-v="bank"></b></div><div class="icons" data-icons="bank"></div></div>
+              <div class="mbx-box is-chain"><div class="mbx-label">Wallet <b data-v="wallet"></b></div><div class="icons" data-icons="wallet"></div></div>
+            </section>
+            <div class="mbx-lanes" aria-hidden="true">
+              <div class="lane lane-fiat"><span data-lane="fiat"></span></div>
+              <div class="lane lane-chain"><span data-lane="chain"></span></div>
             </div>
-            <p>El emisor <b>destruye</b> esos 40 USDC y le paga 40 USD de la reserva a su cuenta bancaria. Esos tokens dejan de existir.</p>
+            <section class="mbx-actor" aria-label="Emisor">
+              <h4><span class="avatar is-issuer" aria-hidden="true">E</span>Emisor de USDC</h4>
+              <div class="mbx-box is-fiat"><div class="mbx-label">Reserva (bóveda) <b data-v="reserve"></b></div><div class="icons" data-icons="reserve"></div></div>
+              <div class="mbx-box is-supply"><div class="mbx-label">USDC que existen</div><div class="supply" data-v="supply"></div></div>
+            </section>
+          </div>
+          <p class="mbx-caption" id="mbx-caption" aria-live="polite"></p>
+          <div class="mbx-legend" aria-hidden="true">
+            <span><i class="ic bill"></i>10 USD</span><span><i class="ic coin"></i>10 USDC</span>
+            <span><i class="ic coin is-new"></i>llegó en este paso</span><span><i class="ic bill is-out"></i>salió</span><span><i class="ic coin is-gone"></i>quemado, deja de existir</span>
+            <button type="button" class="btn-ghost" id="mbx-next">Siguiente paso</button>
           </div>
         </div>
-        <ol class="mb-track" aria-label="Evolución de USDC en circulación y dólares en reserva">
-          <li><span class="mb-when">Al inicio</span><b>0 USDC</b><span>0 USD en reserva</span></li>
-          <li><span class="mb-when">Después del mint</span><b>100 USDC</b><span>100 USD en reserva</span></li>
-          <li><span class="mb-when">Después del burn</span><b>60 USDC</b><span>60 USD en reserva</span></li>
-        </ol>
-        <p class="viz-note">La regla: cada USDC que existe tiene 1 USD guardado detrás. Mint y burn hacen que las dos cifras suban y bajen siempre juntas, y por eso el token vale 1 USD.</p>
+        <p class="viz-note">La regla: cada USDC que existe tiene 1 USD guardado en la bóveda. Por eso "USDC que existen" y "Reserva" siempre muestran la misma cifra.</p>
       </article>
 
       <article class="viz" aria-labelledby="v-sand">
