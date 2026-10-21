@@ -19,19 +19,25 @@
     <h1>Stablecoins: dólares digitales que se envían en segundos.</h1>
     <p class="lede">Son tokens que mantienen su valor anclado al dólar (1 token = 1 USD) y circulan por una blockchain las 24 horas, todos los días. Esta guía reúne el vocabulario y los recursos para que un equipo técnico entienda también el negocio detrás.</p>
   </div>
-  <figure class="peg" aria-label="Ilustración: precio de una stablecoin oscilando alrededor de 1,00 USD">
-    <svg viewBox="0 0 1200 220" preserveAspectRatio="none" aria-hidden="true">
-      <defs>
-        <pattern id="guilloche" width="24" height="24" patternUnits="userSpaceOnUse">
-          <path d="M0 12 Q6 0 12 12 T24 12" fill="none" stroke="currentColor" stroke-width=".6" opacity=".35"/>
-        </pattern>
-      </defs>
-      <rect width="1200" height="220" fill="url(#guilloche)" class="guill"/>
-      <line x1="0" y1="110" x2="1200" y2="110" class="pegline"/>
-      <path id="price" class="price" d=""/>
-      <circle id="dot" class="dot" r="7" cx="0" cy="110"/>
-    </svg>
-    <figcaption><span class="peg-label">1,00 USD</span><span id="peg-readout" class="readout" aria-hidden="true">1.000</span></figcaption>
+  <figure class="race wrap" id="race" aria-label="Comparación: 100 USDC llegan de Lima a Ciudad de México en unos 3 segundos; una transferencia bancaria internacional pasa por bancos corresponsales y tarda de 1 a 5 días hábiles.">
+    <div class="race-ends" aria-hidden="true"><span>Lima</span><span>Ciudad de México</span></div>
+    <div class="track is-coin" aria-hidden="true">
+      <div class="track-head"><span class="track-name">Stablecoin (USDC)</span><span class="track-right"><span class="arrived" id="race-arrived">Recibido</span><span class="track-time" id="race-coin-time">0,0 s</span></span></div>
+      <div class="rail">
+        <i class="pin start"></i><i class="pin end"></i>
+        <div class="runner" id="race-coin"><span class="coin-ic">$</span>100 USDC</div>
+      </div>
+    </div>
+    <div class="track is-bank" aria-hidden="true">
+      <div class="track-head"><span class="track-name">Transferencia bancaria internacional</span><span class="track-time">1 a 5 días hábiles</span></div>
+      <div class="rail">
+        <i class="pin start"></i><i class="pin end"></i>
+        <i class="hop" style="--x:25%"></i><i class="hop" style="--x:50%"></i><i class="hop" style="--x:75%"></i>
+        <div class="runner" id="race-bank"><span class="bank-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 9.5 12 4l9 5.5M5 10v7M9.5 10v7M14.5 10v7M19 10v7M3 20h18"/></svg></span>100 USD</div>
+      </div>
+      <div class="track-status" id="race-bank-status">En el banco de origen</div>
+    </div>
+    <figcaption class="race-note">Tiempos ilustrativos. Cada punto en la ruta bancaria es un banco corresponsal.</figcaption>
   </figure>
 </header>
 

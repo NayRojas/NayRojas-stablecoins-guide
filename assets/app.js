@@ -5,30 +5,32 @@
   const norm = (s) => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  /* ── Hero: precio oscilando alrededor del peg ── */
-  (function peg() {
-    const path = $("#price"), dot = $("#dot"), out = $("#peg-readout");
-    const W = 1200, MID = 110, N = 120;
-    let pts = [], t = 0;
-    const sample = (i) => {
-      // Desvíos pequeños con un único "susto" de depeg que el arbitraje corrige.
-      const base = Math.sin(i * 0.35) * 3 + Math.sin(i * 0.11 + 1) * 4;
-      const shock = Math.exp(-Math.pow((i % 160) - 110, 2) / 30) * 46;
-      return MID + base + shock;
+  /* ── Hero: carrera stablecoin vs. transferencia bancaria ── */
+  (function race() {
+    const coin = $("#race-coin"), bank = $("#race-bank"), t = $("#race-coin-time"),
+      ok = $("#race-arrived"), st = $("#race-bank-status");
+    if (!coin) return;
+    const COIN_MS = 3100, CYCLE = 8000;
+    const STAT = [[0, "En el banco de origen"], [0.05, "Saliendo del banco de origen"], [0.12, "Rumbo al banco corresponsal 1"], [0.22, "Revisión en el banco corresponsal 1… aún faltan 2 bancos"]];
+    const place = (el, p) => { el.style.setProperty("--w", el.offsetWidth + "px"); el.style.left = `calc(${p * 100}% - ${p} * var(--w))`; };
+    const frame = (ms) => {
+      const pc = Math.min(ms / COIN_MS, 1);
+      const ease = pc < 1 ? 1 - Math.pow(1 - pc, 2.2) : 1;
+      place(coin, ease);
+      t.textContent = (Math.min(ms, COIN_MS) / 1000).toFixed(1).replace(".", ",") + " s";
+      ok.classList.toggle("on", pc >= 1);
+      const pb = Math.min(ms / CYCLE, 1) * 0.25;   // el banco apenas llega al primer corresponsal
+      place(bank, pb);
+      let label = STAT[0][1]; STAT.forEach(([x, l]) => { if (pb >= x) label = l; });
+      st.textContent = label;
     };
-    for (let i = 0; i < N; i++) pts.push(sample(i));
-    const draw = () => {
-      const step = W / (N - 1);
-      path.setAttribute("d", pts.map((y, i) => (i ? "L" : "M") + (i * step).toFixed(1) + " " + y.toFixed(1)).join(" "));
-      const y = pts[N - 1];
-      dot.setAttribute("cx", W - 9); dot.setAttribute("cy", y);
-      out.textContent = (1 - (y - MID) / 1000).toFixed(3).replace(".", ",") + " USD";
-    };
-    draw();
-    if (reduce) return;
-    let last = 0;
+    if (reduce) { frame(CYCLE); return; }
+    let start = null;
     const tick = (ts) => {
-      if (ts - last > 90) { pts.shift(); pts.push(sample(N + t++)); draw(); last = ts; }
+      if (start === null) start = ts;
+      let ms = ts - start;
+      if (ms > CYCLE + 1800) { start = ts; ms = 0; }
+      frame(Math.min(ms, CYCLE));
       requestAnimationFrame(tick);
     };
     requestAnimationFrame(tick);

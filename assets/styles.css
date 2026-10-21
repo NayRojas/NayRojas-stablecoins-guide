@@ -64,18 +64,38 @@ h1, h2, h3 { font-family: var(--display); line-height: 1.1; margin: 0; }
   font-variation-settings: "opsz" 96;
 }
 .lede { max-width: 58ch; color: var(--hero-muted); font-size: 1.15rem; margin: 24px 0 0; }
-.peg { position: relative; margin: clamp(32px, 6vw, 56px) 0 0; height: 220px; color: var(--guill); }
-.peg svg { width: 100%; height: 100%; display: block; }
-.pegline { stroke: var(--hero-muted); stroke-width: 1; stroke-dasharray: 2 6; opacity: .7; }
-.price { fill: none; stroke: var(--hero-text); stroke-width: 2.5; stroke-linejoin: round; stroke-linecap: round; }
-.dot { fill: var(--amber); }
-.peg figcaption {
-  position: absolute; left: 16px; right: 16px; top: calc(50% - 38px);
-  display: flex; justify-content: space-between; font-family: var(--display); color: var(--hero-muted);
-  font-size: .95rem; pointer-events: none;
+.race { display: grid; gap: 22px; margin-top: clamp(36px, 6vw, 56px); padding-bottom: clamp(36px, 5vw, 56px); }
+.race-ends { display: flex; justify-content: space-between; font-family: var(--display); font-weight: 700; font-size: 1.05rem; color: var(--hero-text); margin-bottom: -10px; }
+.track { display: grid; gap: 8px; }
+.track-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.track-name { color: var(--hero-muted); font-size: .95rem; }
+.track-time { font-family: var(--display); font-weight: 800; font-size: 1.25rem; font-variant-numeric: tabular-nums; color: var(--hero-text); }
+.is-bank .track-time { color: #E7B85A; }
+.rail { position: relative; height: 44px; }
+.rail::before { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 2px; transform: translateY(-50%); background: color-mix(in srgb, var(--hero-muted) 45%, transparent); }
+.is-bank .rail::before { background: repeating-linear-gradient(90deg, color-mix(in srgb, var(--hero-muted) 45%, transparent) 0 8px, transparent 8px 14px); }
+.pin { position: absolute; top: 50%; width: 12px; height: 12px; border-radius: 50%; background: var(--hero-text); transform: translate(-50%, -50%); }
+.pin.start { left: 6px; } .pin.end { left: calc(100% - 6px); }
+.hop { position: absolute; top: 50%; left: var(--x); width: 14px; height: 14px; border-radius: 3px; transform: translate(-50%, -50%) rotate(45deg); border: 2px solid #E7B85A; background: var(--hero-bg); }
+.runner { position: absolute; top: 50%; left: 0; transform: translateY(-50%); display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px 6px 6px; border-radius: 999px; font: 800 .95rem var(--display); white-space: nowrap; z-index: 1; }
+.is-coin .runner { background: #2775CA; color: #fff; box-shadow: 0 0 0 4px color-mix(in srgb, #2775CA 30%, transparent); }
+.is-bank .runner { background: #E9E3D3; color: #2B2618; }
+.coin-ic { width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; background: #fff; color: #2775CA; font-weight: 800; }
+.bank-ic { width: 26px; height: 26px; border-radius: 50%; background: #2B2618; position: relative; }
+.bank-ic { display: grid; place-items: center; }
+.bank-ic svg { width: 16px; height: 16px; fill: none; stroke: #E9E3D3; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.track-right { display: inline-flex; align-items: baseline; gap: 12px; }
+.arrived { font: 700 .9rem var(--body); color: #9BE3C3; opacity: 0; transform: translateX(6px); transition: opacity .3s, transform .3s; }
+.arrived::before { content: "✓ "; }
+.arrived.on { opacity: 1; transform: none; }
+.track-status { font-size: .9rem; color: var(--hero-muted); min-height: 1.4em; }
+.race-note { font-size: .82rem; color: var(--hero-muted); opacity: .8; }
+@media (max-width: 560px) {
+  .runner { font-size: .82rem; padding: 4px 10px 4px 4px; gap: 6px; }
+  .coin-ic, .bank-ic { width: 22px; height: 22px; }
+  .race-ends { font-size: .95rem; }
 }
-.readout { font-variant-numeric: tabular-nums; color: var(--hero-text); font-weight: 700; }
-@media (min-width: 1112px) { .peg figcaption { left: calc((100% - 1080px) / 2); right: calc((100% - 1080px) / 2); } }
+@media (prefers-reduced-motion: reduce) { .arrived { transition: none; } }
 
 /* ── Nav ── */
 .sitenav { position: sticky; top: 0; z-index: 5; background: color-mix(in srgb, var(--paper) 92%, transparent); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
